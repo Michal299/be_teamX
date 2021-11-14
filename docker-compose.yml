@@ -18,7 +18,8 @@ services:
     container_name: prestashopv2
     depends_on:
       - mysql
-    image: prestashop/prestashop:1.7
+    build:
+      context: ./prestashop
     ports:
       - 8000:80
       - 8001:443
