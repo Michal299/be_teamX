@@ -1,5 +1,9 @@
 # Biznes elektroniczny - projekt
 
+## How to run
+In order to run prestashop along with other required services you will need docker and execute command:
+`docker-compose up -build -d`
+
 ## Members
 [Aleksandra Nadzieja](https://github.com/a-leandra)
 
