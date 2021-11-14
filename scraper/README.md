@@ -5,10 +5,11 @@
 * python3
 * requests
 * beautifulsoup4
+* progress
 
 You can install libraries using command below
 ```
-python -m pip install requests, beautifulsoup4
+python -m pip install requests, beautifulsoup4, progress
 ```
 ## Run
 ./main.py

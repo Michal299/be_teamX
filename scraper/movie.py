@@ -1,23 +1,32 @@
 # Plain python object for movie (sorry for be too much java-like in python xd)
 # Setters for this class support builder pattern, so you can use it like obj.set_name('name').add_info('info')...
 class Movie:
-    attributes = {}
+    
+    scheme = ["actors", "categories", "description", "director", "info", "name", "original_name", "photos", "poster", "screenwriter", "short_desc", "trailer"]
+    whitespace_filter = lambda a: a != '\n' and a != '\r' and a != '\t'
 
     def __init__(self):
-        pass
-
+        self.attributes = {}
+        
     def __str__(self):
         return self.attributes.__str__()
 
     def set_name(self, name):
-        self.attributes['name'] = name
+        self.attributes['name'] = name.strip()
         return self
     
     def get_name(self):
         return self.attributes['name']
 
+    def set_original_name(self, name):
+        self.attributes['original_name'] = name.strip()
+        return self
+
+    def get_name(self):
+        return self.attributes['name']
+
     def set_director(self, director_name):
-        self.attributes['director'] = director_name
+        self.attributes['director'] = director_name.strip()
         return self
 
     def get_director(self):
@@ -25,30 +34,43 @@ class Movie:
         
 
     def set_description(self, description):
-        self.attributes['description'] = description
+        description = filter(Movie.whitespace_filter, description)
+        description = "".join(description)
+        self.attributes['description'] = description.strip()
         return self
 
     def get_description(self):
         return self.attributes['description']
 
+    def set_short_desc(self, desc):
+        desc = filter(Movie.whitespace_filter, desc)
+        desc = "".join(desc)
+        self.attributes['short_desc'] = desc.strip()
+        return self
+    
+    def get_short_desc(self):
+        return self.attributes['short_desc']
+
     def add_category(self, category_item):
-        if 'category' not in self.attributes.keys():
+        if 'categories' not in self.attributes.keys():
             self.attributes['categories'] = []
-        self.attributes['categories'].append(category_item)
+        self.attributes['categories'].append(category_item.strip())
         return self
 
     def get_categories(self):
         return self.attributes['categories']
 
     def set_screenwriter(self, screenwriter):
-        self.attributes['screenwriter'] = screenwriter
+        self.attributes['screenwriter'] = screenwriter.strip()
         return self
     
     def get_screenwriter(self):
         return self.attributes['screenwriter']
 
     def set_actors(self, actors):
-        self.attributes['actors'] = actors
+        actors = filter(Movie.whitespace_filter, actors)
+        actors = "".join(actors)
+        self.attributes['actors'] = actors.strip()
         return self
 
     def get_actors(self):
@@ -78,9 +100,12 @@ class Movie:
         return self.attributes['photos']
 
     def add_info(self, info):
-        if 'infos' not in self.attributes.keys():
-            self.attributes['keys'] = []
-        self.attributes['keys'].append(info)
+        if 'info' not in self.attributes.keys():
+            self.attributes['info'] = []
+
+        info = filter(Movie.whitespace_filter, info)
+        info = "".join(info)
+        self.attributes['info'].append(info.strip())
         return self
     
     def get_info(self):
@@ -90,5 +115,13 @@ class Movie:
         return self.attributes
 
     def to_csv(self):
-        pass
-
+        scheme = Movie.scheme
+        result = []
+        for scheme_element in scheme:
+            if scheme_element not in self.attributes.keys():
+                element = "" 
+            else:
+                element = self.attributes[scheme_element]
+                element = ",".join(element) if isinstance(element, list) else element
+            result.append(element)
+        return result
