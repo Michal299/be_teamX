@@ -9,7 +9,7 @@ class Seance:
         self.attributes['movie_name'] = name.strip()
         return self
 
-    def get_move_name(self):
+    def get_movie_name(self):
         return self.attributes['movie_name']
 
     def set_date(self, date):

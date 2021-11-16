@@ -4,6 +4,7 @@ import requests
 from movie import Movie
 from bs4 import BeautifulSoup
 import pprint
+from products import Products
 from seance import Seance
 import csv_handler as csv
 from progress.bar import Bar
@@ -33,7 +34,7 @@ def get_cities_from_map():
     cities_div = soup.find("div", class_='list')
     cities_links = cities_div.find_all("a")
     cinemas_with_links = list(
-        map(lambda a: Cinema().add_name(get_cinema_name_from_link(a)).add_path(a['href']), cities_links))
+        map(lambda a: Cinema().add_name(get_cinema_name_from_link(a)).add_path(a['href']).add_super_category('Repertuar'), cities_links))
     return cinemas_with_links
 
 
@@ -196,6 +197,28 @@ def scrap_cinemas():
     cinemas = get_cities_from_map()
     csv.save_elements('cinemas.csv', Cinema.scheme, cinemas)
 
+
+def prepare_categories():
+    scheme = ['Nazwa', 'Aktywny (0 lub 1)', 'Kategoria nadrzedna']
+
+    fake_cinema = Cinema().add_name('Repertuar').add_super_category('Strona główna')
+    cinemas = [fake_cinema] + get_cities_from_map()
+    csv.save_elements('categories.csv', scheme, cinemas)
+    
+def prepare_products():
+    cinemas = get_cities_from_map()
+
+    products = []
+    for cinema in cinemas[:2]:
+        print(cinema.get_name())
+        seances = get_seances_from_cinema('https://www.helios.pl/' + cinema.get_path().split('/')[1] + '/')    
+        for seance in seances:
+            product = Products().add_name(seance.get_movie_name()).add_price(25.00).add_category(cinema.get_name())
+            products.append(product)
+
+    csv.save_elements("products.csv", ['Nazwa', 'Cena zawiera podatek', 'Kategorie (x,y,z...)'], products)
+    
+
 def main():
     parser = argparse.ArgumentParser(description='Lets scrap Helios')
     parser.add_argument('-s', '--seances', type=str, required=False, help='Get all seances from specified cinema (for example --movies \'37, Belchatow\') or from all cinemas with \'all\' option')
@@ -231,4 +254,6 @@ def main():
         scrap_cinemas()
 
 
-main()
+# main()
+prepare_categories()
+prepare_products()
