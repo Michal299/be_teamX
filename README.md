@@ -18,6 +18,9 @@ In order to run prestashop, all you need to do is run:\
 `docker-compose up --build -d`\
 from the main project folder.
 
+After containers starts, run command\
+`docker exec -it prestashopv2 chown -R www-data:www-data "/var/www/html"`
+
 After a while, shop should be available at: http://localhost:8000
 
 ## Members
