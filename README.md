@@ -7,7 +7,7 @@
 
 ## How to save database
 1. Go into mysql container\
-`docker exec -it mysql`
+`docker exec -it mysql bash`
 2. Make dump of database\
 `mysqldump -u root -p prestashop > db_dump.sql`
 3. Go back to the host and copy db dump from mysql conatiner\
