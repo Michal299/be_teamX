@@ -2,7 +2,7 @@
 
 ## How to save prestashop
 1. Copy whole prestasop installation catalog to the host\
-`docker cp prestashopv2:/var/www/html ./prestashop/html`
+`docker cp prestashopv2:/var/www/html ./prestashop/`
 2. Save database
 
 ## How to save database
