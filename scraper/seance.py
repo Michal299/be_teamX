@@ -12,6 +12,13 @@ class Seance:
     def get_movie_name(self):
         return self.attributes['movie_name']
 
+    def add_movie_link(self, link):
+        self.attributes['link'] = link
+        return self
+
+    def get_movie_link(self):
+        return self.attributes['link']
+
     def set_date(self, date):
         self.attributes['date'] = date
         return self
