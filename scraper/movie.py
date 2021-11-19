@@ -42,6 +42,16 @@ class Movie:
     def get_description(self):
         return self.attributes['description']
 
+    def get_full_description(self):
+        
+        info = ', '.join(self.attributes['info'] if 'info' in self.attributes.keys() else ['-'])
+        directors = self.attributes['director'] if 'director' in self.attributes.keys() else '-'
+        screenwriters = self.attributes['screenwriter'] if 'screenwriter' in self.attributes.keys() else '-'
+        genre = self.attributes['categories'] if 'categories' in self.attributes.keys() else '-'
+        actors = self.attributes['actors'] if 'actors' in self.attributes.keys() else '-'
+        desc = self.get_description()
+        return f'{info}<br><br>Reżyseria:<br>{directors}<br><br>Scenariusz:<br>{screenwriters}<br><br>Obsada:<br>{actors}<br><br>Opis:<br>{desc}'
+
     def set_short_desc(self, desc):
         desc = filter(Movie.whitespace_filter, desc)
         desc = "".join(desc)
