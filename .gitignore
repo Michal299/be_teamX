@@ -1,3 +1,4 @@
 **/.idea
 **/target/classes
 **/target/generated-sources
+**/__pycache__
