@@ -98,11 +98,31 @@ def prepare_categories():
     cinemas = [fake_cinema] + get_cities_from_map()
     csv_handler.save_elements('categories.csv', scheme, cinemas)
 
+def alt_movie(url):
+    movie_page = requests.get(url)
+    movie_soup = BeautifulSoup(movie_page.content, "html.parser")
+
+    movie = Movie()
+
+    desc = movie_soup.find("div", class_="html-area").text
+    movie.set_description(desc)
+    
+    title = movie_soup.find("h1", class_="title-big").text
+    movie.set_name(title)
+
+    poster = movie_soup.find("aside", class_="column-sidebar").find("img")['src']
+    movie.set_poster(poster)
+
+    return movie
+
+
 def scrap_movie(link):
 
     movie_url = "https://helios.pl" + link
     movie_page = requests.get(movie_url)
     movie_soup = BeautifulSoup(movie_page.content, "html.parser").find("div", class_="movie-page")
+    if not movie_soup:
+        return alt_movie(movie_url)
 
     movie_title_div = movie_soup.find("h1", class_="movie-title")
 
