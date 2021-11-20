@@ -6,8 +6,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
@@ -39,13 +42,13 @@ public class Main {
     private final String attributeName = "Terminy";
 
     private final List<String> categoriesColumns = Arrays.asList("Nazwa", "Aktywny (0 lub 1)", "Kategoria nadrzędna");
+    private final List<String> productsColumns = Arrays.asList("Indeks #", "Nazwa", "Cena zawiera podatek. (brutto)", "Kategorie (x,y,z...)", "Opis", "Adresy URL zdjęcia (x,y,z...)");
 
     public Main(String baseUrl, String categoriesPath, String productsPath, String combinationsPath) {
         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
 
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        System.out.println(baseUrl);
 
         this.baseUrl = baseUrl;
         this.categoriesPath = categoriesPath;
@@ -54,28 +57,69 @@ public class Main {
     }
 
     public void run() {
-        login();
+        try {
+            login();
 
-        if (!isAttrPresent(attributeName)) {
-            addAttribute(attributeName);
+            if (!isAttrPresent(attributeName)) {
+                addAttribute(attributeName);
+            }
+
+            addCategories(categoriesPath);
+            addProducts(productsPath);
+            addCombinations(combinationsPath);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            //driver.quit();
         }
 
-        addCategories(categoriesPath);
-        addProducts(productsPath);
-        addCombinations(combinationsPath);
     }
 
     private void addCombinations(String path) {
 
     }
 
-    private void addProducts(String path) {
+    private void addProducts(String path) throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"entity\"]"))
+        );
+        // select entity type to import
+        new Select(driver.findElement(By.id("entity"))).selectByValue("1");
 
+        // select file
+        driver.findElement(By.xpath("//*[@id=\"main-div\"]/div[2]/div[2]/div/div[2]/div/div/div[1]/form/div/div[1]/div[7]/button")).click();
+        driver.findElement(By.xpath("//*[@id=\"file\"]")).sendKeys(path);
+
+        // select all options to true
+        driver.findElement(By.xpath("//*[@id=\"main-div\"]/div[2]/div[2]/div/div[2]/div/div/div[1]/form/div/div[1]/div[12]"))
+                .findElements(By.tagName("input"))
+                .stream()
+                .filter(e -> e.getAttribute("value").equals("1"))
+                .filter(e -> e.getAttribute("checked") == null)
+                .forEach(WebElement::click);
+
+        // click next step button
+        driver.findElement(By.xpath("//*[@id=\"main-div\"]/div[2]/div[2]/div/div[2]/div/div/div[1]/form/div/div[2]/div/button")).click();
+        driver.switchTo().alert().accept();
+
+        selectColumns(productsColumns);
+
+        // click import button
+        driver.findElement(By.xpath("//*[@id=\"import\"]")).click();
+
+        // wait for successful import
+        final int minutesLimit = 40;
+        WebDriverWait wait2 = new WebDriverWait(driver, 60 * minutesLimit);
+        wait2.until(
+                ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[3]/div[2]/div/div/div[2]/div[6]/div/button[3]"))
+        );
+        driver.findElement(By.xpath("/html/body/div[3]/div[2]/div/div/div[2]/div[6]/div/button[3]")).click();
     }
 
     private void addCategories(String path) {
 
-        // go to categories page
+        // go to page with categories
         WebElement categoriesButton = driver.findElement(By.id("subtab-AdminCategories"));
         final String link = categoriesButton.findElement(By.tagName("a")).getAttribute("href");
         driver.get(link);
@@ -87,6 +131,9 @@ public class Main {
         WebElement dropdownMenu = driver.findElement(By.cssSelector(".dropdown-menu.dropdown-menu-right.show"));
         final String importLink = dropdownMenu.findElement(By.id("category-grid-action-import")).getAttribute("href");
         driver.get(importLink);
+
+        // select entity type to import
+        new Select(driver.findElement(By.id("entity"))).selectByValue("0");
 
         // select file
         driver.findElement(By.xpath("//*[@id=\"file\"]")).sendKeys(path);
