@@ -18,7 +18,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        try (InputStream input = Main.class.getClassLoader().getResourceAsStream("admin.properties")) {
+        try (InputStream input = Main.class.getClassLoader().getResourceAsStream("config.properties")) {
             System.getProperties().load(input);
         }
 
@@ -65,20 +65,38 @@ public class Main {
         try {
             login();
 
+            if (isWelcomeDisplayed()) {
+                skipWelcome();
+            }
+
             if (!isAttrPresent(attributeName)) {
                 addAttribute(attributeName);
             }
 
             goToImportPage();
-            importFile(categoriesPath, categoriesColumns, 60 * 10, 0);
-            importFile(productsPath, productsColumns, 60 * 60, 1);
-            importFile(combinationsPath, combinationsColumns, 60 * 30, 2);
+            importFile(categoriesPath, categoriesColumns, Integer.getInteger("import.categories.max.time"), 0);
+            importFile(productsPath, productsColumns, Integer.getInteger("import.products.max.time"), 1);
+            importFile(combinationsPath, combinationsColumns, Integer.getInteger("import.combinations.max.time"), 2);
 
             System.out.println("Import end with success");
         } finally {
             driver.quit();
         }
 
+    }
+
+    private void skipWelcome() {
+        driver.findElement(By.xpath("/html/body/div[1]/div/div/div[3]/button[1]")).click();
+    }
+
+    private boolean isWelcomeDisplayed() {
+        try {
+            driver.findElement(By.className("welcome"));
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
     }
 
     private void goToImportPage() {
@@ -161,7 +179,7 @@ public class Main {
         driver.findElement(By.xpath("//*[@id=\"passwd\"]")).sendKeys(adminPassword);
         driver.findElement(By.xpath("//*[@id=\"submit_login\"]")).click();
 
-        WebElement element = wait.until(presenceOfElementLocated(By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1\n")));
+        wait.until(presenceOfElementLocated(By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1\n")));
     }
 
     private void addAttribute(String attributeName) {
