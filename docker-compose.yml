@@ -5,7 +5,7 @@ services:
     container_name: mysql
     image: mysql:5.7
     volumes:
-      - ./mysql/init:/docker-entrypoint-initdb.d/
+      - ./mysql/init:/docker-entrypoint-initdb.d
       - /var/lib/mysql
     restart: always
     environment:

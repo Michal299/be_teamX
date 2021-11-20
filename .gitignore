@@ -8,4 +8,6 @@
 **/cache/index.php
 
 **/var/cache/**
+**/var/cache/pro_/**
+**/var/cache/prod/**
 **/var/logs/**
