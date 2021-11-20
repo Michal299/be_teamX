@@ -12,4 +12,6 @@
 **/var/cache/prod/**
 **/var/logs/**
 **/.idea
-**/target
+**/target/classes
+**/target/generated-sources
+**/__pycache__
