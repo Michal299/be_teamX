@@ -11,3 +11,5 @@
 **/var/cache/pro_/**
 **/var/cache/prod/**
 **/var/logs/**
+
+**/.idea/
