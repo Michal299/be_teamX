@@ -1,0 +1,13 @@
+**/cache/cachefs/**
+**/cache/purifier/**
+**/cache/push/**
+**/cache/sandbox/**
+**/cache/smarty/**
+**/cache/tcpdf/**
+**/cache/deprecated.txt
+**/cache/index.php
+
+**/var/cache/**
+**/var/cache/pro_/**
+**/var/cache/prod/**
+**/var/logs/**
