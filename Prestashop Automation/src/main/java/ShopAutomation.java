@@ -62,7 +62,7 @@ public class ShopAutomation {
         int quantity;
         WebElement element;
 
-        for(int i = 1 ; i < 6; i++) {
+        for(int i = 2 ; i < 7; i++) {
             // Go to the list of cities
             driver.findElement(By.xpath("/html/body/main/header/div[2]/div/div[1]/div[2]/div[1]/ul/li[1]/a")).click();
 
