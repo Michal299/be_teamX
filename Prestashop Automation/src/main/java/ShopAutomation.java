@@ -11,6 +11,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Random;
 
+import static org.junit.Assert.assertTrue;
+
 public class ShopAutomation {
     WebDriver driver;
     Random rand;
@@ -209,6 +211,10 @@ public class ShopAutomation {
 
         // Go to history and orders details
         driver.findElement(By.xpath("/html/body/main/section/div/div/section/section/div/div/a[3]/span/i")).click();
+
+        // Assert that the order was placed
+        String actualString = driver.findElement(By.xpath("/html/body/main/section/div/div/section/section/table/tbody/tr/td[4]/span")).getText();
+        assertTrue(actualString.contains("Przygotowanie w toku"));
 
         // Check the details of the order
         driver.findElement(By.xpath("/html/body/main/section/div/div/section/section/table/tbody/tr/td[6]/a[1]")).click();
