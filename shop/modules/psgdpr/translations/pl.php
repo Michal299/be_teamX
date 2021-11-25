@@ -6,6 +6,7 @@ $_MODULE['<{psgdpr}prestashop>psgdpr_5966265f35dd87febf4d59029bc9ef66'] = 'Oficj
 $_MODULE['<{psgdpr}prestashop>psgdpr_dbf90f78fc135d723570a4a43041a3dc'] = 'Spełniaj najważniejsze wymogi Ogólnego rozporządzenia o ochronie danych dzięki modułowi opracowanemu przez PrestaShop.';
 $_MODULE['<{psgdpr}prestashop>psgdpr_bb8956c67b82c7444a80c6b2433dd8b4'] = 'Czy na pewno chcesz odinstalować ten moduł?';
 $_MODULE['<{psgdpr}prestashop>psgdpr_e9415612c1d72517733c98e6877a6b46'] = 'Podczas odinstalowywania wystąpił błąd. Skontaktuj się z nami przez witrynę Addons.';
+$_MODULE['<{psgdpr}prestashop>psgdpr_f82c07eeaadf212c53a454cca4073e82'] = 'Wystąpił błąd podczas odinstalowywania. Proszę skontaktuj się z administratorem.';
 $_MODULE['<{psgdpr}prestashop>psgdpr_e7502bc086a11cfa8789053af27eab2d'] = 'Zapisane z powodzeniem!';
 $_MODULE['<{psgdpr}prestashop>psgdpr_a59aa7fb037f2498e36a6d687869e83e'] = 'Dane osobowe klientów usunięte przez oficjalny moduł RODO.';
 $_MODULE['<{psgdpr}prestashop>menu_be11c74c1dd7f307bb80183a90dc2067'] = 'Zaczynać';
@@ -215,6 +216,7 @@ $_MODULE['<{psgdpr}prestashop>personaldata.carts-tab_63d5049791d9d79d86e9a108b0a
 $_MODULE['<{psgdpr}prestashop>personaldata.carts-tab_49ee3087348e8d44e1feda1917443987'] = 'Nazwa';
 $_MODULE['<{psgdpr}prestashop>personaldata.carts-tab_694e8d1f2ee056f98ee488bdc4982d73'] = 'Ilość';
 $_MODULE['<{psgdpr}prestashop>personaldata.carts-tab_bbd47e26c95290218b2fc449e54e8cdc'] = 'Brak koszyków';
+$_MODULE['<{psgdpr}prestashop>gdprlog_ba2c992afac038de48cb8866fb819fd6'] = 'Klient gościa: ID';
 $_MODULE['<{psgdpr}prestashop>exportdatatocsv_3bcfe5c02494f4ff326c5dbd1dcffa91'] = 'Informacje ogólne';
 $_MODULE['<{psgdpr}prestashop>exportdatatocsv_019ec3132cdf8ee0f2e2a75cf5d3e459'] = 'Płeć';
 $_MODULE['<{psgdpr}prestashop>exportdatatocsv_49ee3087348e8d44e1feda1917443987'] = 'Nazwa';
@@ -231,6 +233,7 @@ $_MODULE['<{psgdpr}prestashop>exportdatatocsv_15bbb9d0bbf25e8d2978de1168c749dc']
 $_MODULE['<{psgdpr}prestashop>exportdatatocsv_284b47b0bb63ae2df3b29f0e691d6fcf'] = 'Adresy';
 $_MODULE['<{psgdpr}prestashop>exportdatatocsv_effdb9ce6c5d44df31b89d7069c8e0fb'] = 'Alias';
 $_MODULE['<{psgdpr}prestashop>exportdatatocsv_dd7bf230fde8d4836917806aff6a6b27'] = 'Adres';
+$_MODULE['<{psgdpr}prestashop>exportdatatocsv_fac322c3b42d04806299ae195f8a9238'] = 'Numer telefonu';
 $_MODULE['<{psgdpr}prestashop>exportdatatocsv_59716c97497eb9694541f7c3d37b1a4d'] = 'Kraj';
 $_MODULE['<{psgdpr}prestashop>exportdatatocsv_44749712dbec183e983dcd78a7736c41'] = 'Data';
 $_MODULE['<{psgdpr}prestashop>exportdatatocsv_587bb937485e3dbe02ea0d281600bb52'] = 'Brak adresów';
@@ -248,6 +251,7 @@ $_MODULE['<{psgdpr}prestashop>exportdatatocsv_fc26e55e0993a75e892175deb02aae15']
 $_MODULE['<{psgdpr}prestashop>exportdatatocsv_490aa6e856ccf208a054389e47ce0d06'] = 'Identyfikator';
 $_MODULE['<{psgdpr}prestashop>exportdatatocsv_db205f01b4fd580fb5daa9072d96849d'] = 'Ogółem produktów';
 $_MODULE['<{psgdpr}prestashop>exportdatatocsv_bbd47e26c95290218b2fc449e54e8cdc'] = 'Brak koszyków';
+$_MODULE['<{psgdpr}prestashop>exportdatatocsv_89ac4bd26e975229032206877db1f027'] = 'Produkt(y) wciąż w koszyku';
 $_MODULE['<{psgdpr}prestashop>exportdatatocsv_fc6dfe4f8b07fc04c99e27425f780754'] = 'Identyfikator';
 $_MODULE['<{psgdpr}prestashop>exportdatatocsv_75ed578ac3cb02b0ba40002a25bc0403'] = 'Referencje produktu';
 $_MODULE['<{psgdpr}prestashop>exportdatatocsv_09dc02ecbb078868a3a86dded030076d'] = 'Brak produktów';
