@@ -11,4 +11,3 @@ openssl req -new -nodes -newkey rsa:2048 -keyout localhost.key -out localhost.cs
 openssl x509 -req -sha256 -days 1024 -in localhost.csr -CA RootCA.pem -CAkey RootCA.key -CAcreateserial -extfile domains.ext -out localhost.crt
 
 a2enmod ssl
-service apache2 restart
