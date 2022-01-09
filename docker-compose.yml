@@ -18,8 +18,7 @@ services:
     container_name: prestashop
     depends_on:
       - mysql
-    build:
-      context: ./ssl
+    image: michal299/pg_biznes
     ports:
       - 8000:80
       - 8001:443
