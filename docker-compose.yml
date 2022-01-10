@@ -11,7 +11,7 @@ services:
       DB_SERVER: actina15.maas
       DB_USER: BE_175132_user
       DB_PASSWD: password
-      DB_NAME: BE_175132_db
+      DB_NAME: BE_175132
       PS_FOLDER_ADMIN: admin
       PS_FOLDER_INSTALL: install
       PS_INSTALL_AUTO: 0
