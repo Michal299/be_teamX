@@ -1,13 +1,6 @@
-DATABASE_NAME="BE_175132"
-DATABASE_USER="BE_175132_user"
-DATABASE_PASSWORD="password"
-DATABASE_ROOT_PASSWORD="student"
-SHOP_URL="localhost:15132"
-SHOP_SSL_URL="localhost:15133"
-
-mysql -p$DATABASE_ROOT_PASSWORD -e "CREATE DATABASE IF NOT EXISTS ${DATABASE_NAME};"
-mysql -p$DATABASE_ROOT_PASSWORD -e "CREATE USER IF NOT EXISTS ${DATABASE_USER}@'%' IDENTIFIED BY '${DATABASE_PASSWORD}';"
-mysql -p$DATABASE_ROOT_PASSWORD -e "GRANT ALL PRIVILEGES ON ${DATABASE_NAME}.* TO '${DATABASE_USER}'@'%';"
-mysql -p$DATABASE_ROOT_PASSWORD -e "FLUSH PRIVILEGES;"
-mysql -u $DATABASE_USER -p$DATABASE_PASSWORD $DATABASE_NAME < db_dump.sql		# odzyskiwanie dumpa bazy danych
-mysql -u $DATABASE_USER -p$DATABASE_PASSWORD $DATABASE_NAME -e "UPDATE ps_shop_url SET domain='${SHOP_URL}', domain_ssl='${SHOP_SSL_URL}' WHERE id_shop_url=1;"	# ustawienie url i ssl url dla sklepu
+mysql -pstudent -e "CREATE DATABASE IF NOT EXISTS BE_175132;"
+mysql -pstudent -e "CREATE USER IF NOT EXISTS BE_175132_user@'%' IDENTIFIED BY 'password';"
+mysql -pstudent -e "GRANT ALL PRIVILEGES ON BE_175132.* TO 'BE_175132'@'%';"
+mysql -pstudent -e "FLUSH PRIVILEGES;"
+mysql -u BE_175132_user -ppassword BE_175132 < db_dump.sql		# odzyskiwanie dumpa bazy danych
+mysql -u BE_175132_user -ppassword BE_175132 -e "UPDATE ps_shop_url SET domain='localhost:15132', domain_ssl='localhost:1533' WHERE id_shop_url=1;"	# ustawienie url i ssl url dla sklepu
