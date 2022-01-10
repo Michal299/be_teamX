@@ -9,5 +9,5 @@ mysql -p$DATABASE_ROOT_PASSWORD -e "CREATE DATABASE IF NOT EXISTS ${DATABASE_NAM
 mysql -p$DATABASE_ROOT_PASSWORD -e "CREATE USER IF NOT EXISTS ${DATABASE_USER}@'%' IDENTIFIED BY '${DATABASE_PASSWORD}';"
 mysql -p$DATABASE_ROOT_PASSWORD -e "GRANT ALL PRIVILEGES ON ${DATABASE_NAME}.* TO '${DATABASE_USER}'@'%';"
 mysql -p$DATABASE_ROOT_PASSWORD -e "FLUSH PRIVILEGES;"
-mysql -u $DATABASE_USER -p$DATABASE_PASSWORD $DATABASE_NAME < /tmp/db_dump.sql		# odzyskiwanie dumpa bazy danych
+mysql -u $DATABASE_USER -p$DATABASE_PASSWORD $DATABASE_NAME < /db_dump.sql		# odzyskiwanie dumpa bazy danych
 mysql -u $DATABASE_USER -p$DATABASE_PASSWORD $DATABASE_NAME -e "UPDATE ps_shop_url SET domain='${SHOP_URL}', domain_ssl='${SHOP_SSL_URL}' WHERE id_shop_url=1;"	# ustawienie url i ssl url dla sklepu
