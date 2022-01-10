@@ -16,8 +16,8 @@ RUN chmod -R 755 /var/www/html &&\
     chown -R www-data:www-data /var/www/html
 
 # ---------------------------------------------- database preparation -----------------------------------------
-ARG DB_SERVER=postgresql
-ARG DB_PORT=5432
+ARG DB_SERVER=mysql
+ARG DB_PORT=3306
 ARG DB_NAME=BE_175132
 ARG DB_USER=BE_175132_user
 ARG DB_PASSWD=password
