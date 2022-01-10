@@ -1,55 +1,19 @@
 version: '3'
 
 services:
-  mysql:
-    container_name: mysql
-    image: mysql:5.7
-    volumes:
-      - ./mysql/init:/docker-entrypoint-initdb.d
-      - /var/lib/mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: prestashop
-    networks:
-      - prestashop
-
-  prestashop:
-    container_name: prestashop
-    depends_on:
-      - mysql
-    build:
-      context: ./ssl
+  be_teamX:
+    image: michal299/be_175132
     ports:
-      - 8000:80
-      - 8001:443
+      - 15132:80
+      - 15133:443
     restart: always
     environment:
-      DB_SERVER: mysql
-      DB_USER: root
-      DB_PASSWD: root
-      DB_NAME: prestashop
+      DB_SERVER: actina15.maas
+      DB_USER: BE_175132_user
+      DB_PASSWD: password
+      DB_NAME: BE_175132_db
       PS_FOLDER_ADMIN: admin
       PS_FOLDER_INSTALL: install
       PS_INSTALL_AUTO: 0
-    volumes:
-      - ./shop:/var/www/html
-    networks:
-      - prestashop
-
-  phpmyadmin:
-    container_name: phpmyadmin
-    image: phpmyadmin/phpmyadmin
-    ports:
-      - 8080:80
-    depends_on:
-      - mysql
-    environment:
-      PMA_HOST: mysql
-      PMA_USER: root
-      PMA_PASSWORD: root
-    networks:
-      - prestashop
-
-networks:
-  prestashop:
+    deploy:
+      replicas: 1
