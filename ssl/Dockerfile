@@ -15,6 +15,21 @@ COPY --from=repoPrepStage /be_teamX/shop /var/www/html
 RUN chmod -R 755 /var/www/html &&\
     chown -R www-data:www-data /var/www/html
 
+# ---------------------------------------------- database preparation -----------------------------------------
+ARG DB_SERVER=postgresql
+ARG DB_PORT=5432
+ARG DB_NAME=BE_175132_db
+ARG DB_USER=BE_175132_user
+ARG DB_PASSWD=password
+ARG DB_PREFIX=ps_
+
+RUN sed -i "s/'database_host'.*/'database_host' => '$DB_SERVER',/" /var/www/html/app/config/parameters.php
+RUN sed -i "s/'database_port'.*/'database_port' => '$DB_PORT',/" /var/www/html/app/config/parameters.php
+RUN sed -i "s/'database_name'.*/'database_name' => '$DB_NAME',/" /var/www/html/app/config/parameters.php
+RUN sed -i "s/'database_user'.*/'database_user' => '$DB_USER',/" /var/www/html/app/config/parameters.php
+RUN sed -i "s/'database_password'.*/'database_password' => '$DB_PASSWD',/" /var/www/html/app/config/parameters.php
+RUN sed -i "s/'database_prefix'.*/'database_prefix' => '$DB_PREFIX',/" /var/www/html/app/config/parameters.php
+
 # ---------------------------------------------------- ssl ----------------------------------------------------
 RUN cd /etc/apache2/sites-available/ \
 && openssl req -x509 -nodes -new -sha256 -days 1024 -newkey rsa:2048 -keyout RootCA.key -out RootCA.pem -subj "/C=US/CN=Example-Root-CA" \
