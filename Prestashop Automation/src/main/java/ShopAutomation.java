@@ -53,7 +53,7 @@ public class ShopAutomation {
     @Test
     public void buyProducts() throws InterruptedException {
         // Navigate to the URL
-        driver.get("http://localhost:8000");
+        driver.get("https://localhost:15133/");
 
         //Maximize current window
         driver.manage().window().maximize();
