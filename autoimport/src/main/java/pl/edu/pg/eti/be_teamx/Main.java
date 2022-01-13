@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -48,7 +49,7 @@ public class Main {
     private final String attributeName = "Terminy";
 
     private final List<String> categoriesColumns = Arrays.asList("Nazwa", "Aktywny (0 lub 1)", "Kategoria nadrzędna");
-    private final List<String> productsColumns = Arrays.asList("Indeks #", "Nazwa", "Cena zawiera podatek. (brutto)", "Kategorie (x,y,z...)", "Opis", "Adresy URL zdjęcia (x,y,z...)");
+    private final List<String> productsColumns = Arrays.asList("Indeks #", "Nazwa", "Cena zawiera podatek. (brutto)", "Cena bez podatku. (netto)", "ID reguły podatku", "Kategorie (x,y,z...)", "Opis", "Adresy URL zdjęcia (x,y,z...)");
     private final List<String> combinationsColumns = Arrays.asList("Indeks produktu", "Atrybut (Nazwa:Typ:Pozycja)*", "Wartość (Wartość:Pozycja)*", "Ilość");
 
     public Main(String baseUrl, String categoriesPath, String productsPath, String combinationsPath) {
@@ -166,6 +167,9 @@ public class Main {
         List<WebElement> selects = driver.findElements(By.className("type_value"));
 
         for (int i = 0; i < selects.size(); i++) {
+            if (i % 6 == 0 && i != 0) {
+                nextTab();
+            }
             final Select select = new Select(selects.get(i));
             final String selectValue = columnNames.get(i);
 
@@ -173,6 +177,10 @@ public class Main {
             WebElement option = options.stream().filter(opt -> opt.getText().equals(selectValue)).findFirst().get();
             select.selectByValue(option.getAttribute("value"));
         }
+    }
+
+    private void nextTab() {
+        driver.findElement(By.xpath("//*[@id=\"btn_right\"]")).click();
     }
 
     private void login() {

@@ -180,7 +180,7 @@ def prepare_products():
 
     cinemas = get_cities_from_map()
 
-    for cinema in cinemas: 
+    for cinema in cinemas[:2]: 
         price = get_price_for_cinema(cinema)
         print(cinema.get_name())
         seances = get_seances_from_cinema('https://www.helios.pl/' + cinema.get_path().split('/')[1] + '/')    
@@ -192,7 +192,12 @@ def prepare_products():
 
             movie_for_cinema = movie_name + cinema.get_name()
             if movie_for_cinema not in products.keys():
-                products[movie_for_cinema] = Product().add_name(movie_name).add_price(price).add_category(cinema.get_name()).add_id(len(products.keys()) + 1)
+                p = Product().add_name(movie_name).add_price(price).add_category(cinema.get_name()).add_id(len(products.keys()) + 1)
+                price_value = p.get_price().strip().split(" ")[0]
+                price_value = price_value.replace(",", ".")
+                price_without_tax = str(round(float(price_value) / 1.23, 2)).replace(".", ",") + " zł"
+                p.add_price_without_tax(price_without_tax)
+                products[movie_for_cinema] = p
             
 
             products[movie_for_cinema].add_seance(seance.get_time().replace(':', '\'') + ' ' + seance.get_date()).add_number(130)
@@ -200,7 +205,7 @@ def prepare_products():
     with open("products.csv", mode='w', newline='', encoding='utf-8') as elements_file:
         elements_writer = csv.writer(elements_file, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
-        elements_writer.writerow(['Indeks produktu', 'Nazwa', 'Cena', 'Kategoria', 'Opis', 'Adresy URL zdjęcia (x,y,z...)'])
+        elements_writer.writerow(['Indeks produktu', 'Nazwa', 'Cena', 'Cena netto', 'Podatek', 'Kategoria', 'Opis', 'Adresy URL zdjęcia (x,y,z...)'])
         for element in products.values():
             movie = movies[element.get_name()]
             photos = []
@@ -212,7 +217,7 @@ def prepare_products():
                 photos = photos + movie.get_photos()
             
             photos = ','.join(photos)
-            elements_writer.writerow([element.get_id(), element.get_name(), element.get_price(), element.get_category(), movie.get_full_description(), photos])
+            elements_writer.writerow([element.get_id(), element.get_name(), element.get_price(), element.get_price_without_tax(), '1' ,element.get_category(), movie.get_full_description(), photos])
 
 
     with open("combinations.csv", mode='w', newline='', encoding='utf-8') as elements_file:

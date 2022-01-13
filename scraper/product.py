@@ -39,7 +39,14 @@ class Product:
         return self
 
     def get_price(self):
-        return self.attributes['price']
+        return self.attributes['price'].strip()
+
+    def add_price_without_tax(self, price):
+        self.attributes['price_without_tax'] = price
+        return self
+
+    def get_price_without_tax(self):
+        return self.attributes['price_without_tax']
 
     def add_category(self, category):
         self.attributes['category'] = category
